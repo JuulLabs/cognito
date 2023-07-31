@@ -26,7 +26,7 @@ class Cognito
         private
 
         def attributes
-          full_attributes.reject { |_, val| val.instance_of?(Omitted) }
+          full_attributes.reject { |_, val| val.nil? || val.instance_of?(Omitted) }
         end
         memoize :attributes
 
@@ -41,7 +41,7 @@ class Cognito
         end
 
         def phone
-          return phone_number if phone_number.instance_of?(Omitted)
+          return phone_number if phone_number.nil? || phone_number.instance_of?(Omitted)
 
           { number: phone_number }
         end
